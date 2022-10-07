@@ -9,7 +9,7 @@ def get_data(filter = None ): # Получение всего списка
     with open(FILE_PATH) as file:
         data = json.load(file)
     if filter:
-        filter_type = input('what type of filtering: by price(p)  or by status(s): ').lower() # Выбор фильтрации
+        filter_type = input('what type of filtering: by price(p), by status(s) or by date(d)?: ').lower() # Выбор фильтрации
     
         if filter_type == 'p': # Фильтрация по цене
             price = float(input('Enter the price: '))
@@ -37,6 +37,13 @@ def get_data(filter = None ): # Получение всего списка
                 if new_data:
                     return new_data
                 return 'No product found'
+
+        if filter_type == 'd':
+            date = str(datetime.strptime(input("Enter the date dd/mm/yyyy: "), '%d/%m/%Y').date()) 
+            new_data = [i for i in data if i['create_at'] == date]
+            if new_data:
+                return new_data
+            return 'No product found'
     return data
 
     
@@ -59,7 +66,7 @@ def post_data(): # Добавление элемента
         'id': maxid + 1,
         'name': input('enter the name: ').capitalize(),
         'price': float(input('enter the price: ')),
-        'create_at' : str(datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
+        'create_at' : str(datetime.now().strftime("%Y-%m-%d")),
         'updated_at': str(datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
         'description': input('add some description: ').title(),
         'status' : True if input('True or False: ').capitalize() == 'True'   else False
@@ -97,3 +104,4 @@ def delete_data(id): # Удаление элемента
         return 'Deleted'
     return 'No product found'
 
+# %H:%M:%S

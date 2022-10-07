@@ -5,7 +5,7 @@ def main():
         print('Hello, there is function:\n 1- get all products,\n 2 - get one product,\n 3 - create product,\n 4 - delete product,\n 5 - update product,\n 0 - to exit ')
         method = input('enter the number: ')
         if method == '1':
-            filter = True if input('Do you want to filter? (Yes or anything) ').title() == 'Yes' else False 
+            filter = True if input('Do you want to filter? (Yes or anything): ').title() == 'Yes' else False
             print(get_data(filter))
             print('\n')
         elif method == '2':
