@@ -38,7 +38,7 @@ def get_data(filter = None ): # Получение всего списка
                     return new_data
                 return 'No product found'
 
-        if filter_type == 'd':
+        if filter_type == 'd': # Фильтрация по дате
             date = str(datetime.strptime(input("Enter the date dd/mm/yyyy: "), '%d/%m/%Y').date()) 
             new_data = [i for i in data if i['create_at'] == date]
             if new_data:
@@ -64,14 +64,14 @@ def post_data(): # Добавление элемента
 
     data.append({
         'id': maxid + 1,
-        'name': input('enter the name: ').capitalize(),
-        'price': float(input('enter the price: ')),
+        'name': input('Enter the name: ').capitalize(),
+        'price': float(input('Enter the price: ')),
         'create_at' : str(datetime.now().strftime("%Y-%m-%d")),
         'updated_at': str(datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
-        'description': input('add some description: ').title(),
-        'status' : True if input('True or False: ').capitalize() == 'True'   else False
-        
-    })
+        'description': input('Add some description: ').title(),
+        'status' : True if input('True or False: ').capitalize() == 'True' else False
+
+    })    
     with open(FILE_PATH, 'w') as file:
         json.dump(data, file)
         return 'Created'
@@ -83,8 +83,8 @@ def update_data(id): # Обновление элемента
     
     if update_d:
         index_ = data.index(update_d[0])
-        data[index_]['name'] = input('enter the new name: ').capitalize()
-        data[index_]['price'] = float(input('enter the new price: '))
+        data[index_]['name'] = input('Enter the new name: ').capitalize()
+        data[index_]['price'] = float(input('Enter the new price: '))
         data[index_]['updated_at'] = str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
         data[index_]['description'] = input('Add some description: ').title()
         data[index_]['status'] = True if input('True or False: ').title() == 'True' else False
@@ -103,5 +103,3 @@ def delete_data(id): # Удаление элемента
         json.dump(data, open(FILE_PATH, 'w'))
         return 'Deleted'
     return 'No product found'
-
-# %H:%M:%S
